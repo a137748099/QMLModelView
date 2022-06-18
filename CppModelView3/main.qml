@@ -44,7 +44,7 @@ Window {
                 Button  {
                     height: parent.height
                     onClicked: {
-                        myModel.remove(index);
+                        size = "0000"
                     }
                 }
 

@@ -28,15 +28,31 @@ QVariant DataListModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+bool DataListModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (index.row() < 0 || index.row() >= m_list.count())
+        return false;
+
+    ModelData &data = m_list[index.row()];
+    if (role == TypeRole)
+        data.setType(value.toString());
+    else if (role == SizeRole1)
+        data.setSize(value.toString());
+
+    QVector<int> roles = {role};
+    emit dataChanged(index, index, roles);
+    return true;
+}
+
 void DataListModel::insert(int index, const ModelData &data)
 {
     if(index < 0 || index > m_list.count()) {
         return;
     }
 
-    emit beginInsertRows(QModelIndex(), index, index);
+    beginInsertRows(QModelIndex(), index, index);
     m_list.insert(index, data);
-    emit endInsertRows();
+    endInsertRows();
     emit countChanged(m_list.count());
 }
 
@@ -51,9 +67,9 @@ void DataListModel::remove(int index)
         return;
     }
 
-    emit beginRemoveRows(QModelIndex(), index, index);
+    beginRemoveRows(QModelIndex(), index, index);
     m_list.removeAt( index );
-    emit endRemoveRows();
+    endRemoveRows();
     emit countChanged(m_list.count());
 }
 

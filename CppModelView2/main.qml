@@ -44,6 +44,8 @@ Window {
     }
 
     Button  {
+        anchors.bottom: parent.bottom
+        text: "add"
         onClicked: {
             myModel.append({"type": "11","size": "222"});
         }

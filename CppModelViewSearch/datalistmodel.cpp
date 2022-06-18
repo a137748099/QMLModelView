@@ -34,9 +34,9 @@ void DataListModel::insert(int index, const ModelData &data)
         return;
     }
 
-    emit beginInsertRows(QModelIndex(), index, index);
+    beginInsertRows(QModelIndex(), index, index);
     m_list.insert(index, data);
-    emit endInsertRows();
+    endInsertRows();
     emit countChanged(m_list.count());
 }
 
@@ -51,9 +51,9 @@ void DataListModel::remove(int index)
         return;
     }
 
-    emit beginRemoveRows(QModelIndex(), index, index);
+    beginRemoveRows(QModelIndex(), index, index);
     m_list.removeAt( index );
-    emit endRemoveRows();
+    endRemoveRows();
     emit countChanged(m_list.count());
 }
 
